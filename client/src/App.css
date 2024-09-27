@@ -9,3 +9,11 @@
 .debug {
   outline: 1px solid red;
 }
+
+.dark .svg-icon {
+  fill: white;
+}
+
+.light .svg-icon {
+  fill: black;
+}

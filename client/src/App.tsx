@@ -10,7 +10,7 @@ function App() {
     <ThemeProvider>
       <main className="app">
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/*" element={<Dashboard />} />
           <Route path="/design" element={<DesignDocPage />} />
         </Routes>
         <Toaster toastOptions={{ className: "toast" }} />
