@@ -18,6 +18,10 @@
   fill: black;
 }
 
+.svg-icon-no-themeswitch {
+  fill: black;
+}
+
 .dark .toast {
   background: #171717;
   color: white;

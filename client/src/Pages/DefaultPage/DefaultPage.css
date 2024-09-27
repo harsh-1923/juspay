@@ -1,0 +1,33 @@
+.df-info-card {
+  background-color: var(--Primary-Light, rgba(247, 249, 251, 1)) !important;
+  outline: none !important;
+  border: none !important;
+}
+
+.dark .df-info-card {
+  background-color: var(--Primary-Light, rgba(255, 255, 255, 0.05)) !important;
+  outline: none !important;
+  border: none !important;
+}
+
+.default-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 28px;
+}
+
+.dashboard-page-header-wrapper {
+  height: 28px;
+  display: flex;
+  align-items: center;
+}
+
+.dashboard-page-header-wrapper > h2 {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: left;
+  padding: var(--gap-xs) var(--gap-md);
+}
