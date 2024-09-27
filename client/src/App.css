@@ -1,0 +1,11 @@
+:root {
+  --gap-xs: 4px;
+  --gap-md: 8px;
+  --gap-lg: 12px;
+  --gap-xl: 16px;
+  --gap-2xl: 20px;
+}
+
+.debug {
+  outline: 1px solid red;
+}
