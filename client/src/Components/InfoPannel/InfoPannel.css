@@ -15,7 +15,7 @@
   border-left: 1px solid var(--black-10, rgba(255, 255, 255, 0.1));
 }
 
-@media (width < 800px) {
+@media (width < 1000px) {
   .infopannel-wrapper {
     display: none;
   }

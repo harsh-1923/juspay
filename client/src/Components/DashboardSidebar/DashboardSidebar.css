@@ -17,7 +17,7 @@
   border-right: 1px solid var(--black-10, rgba(255, 255, 255, 0.1));
 }
 
-@media (width < 800px) {
+@media (width < 1000px) {
   .dashboard-sidebar {
     display: none;
   }

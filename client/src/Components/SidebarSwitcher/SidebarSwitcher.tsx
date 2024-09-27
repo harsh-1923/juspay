@@ -11,7 +11,7 @@ import { useWindowSize } from "../../hooks/useWindowSize";
 const SidebarSwitcher = () => {
   const { dashboardSettings, setDashboardSettings } = useDashboardContext();
   const windowSize = useWindowSize();
-  const isDesktop = windowSize > 800;
+  const isDesktop = windowSize > 1000;
 
   const toggleSidebar = () => {
     setDashboardSettings({

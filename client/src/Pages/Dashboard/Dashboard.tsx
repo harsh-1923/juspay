@@ -23,7 +23,7 @@ const Dashboard = () => {
         <section className="dashboard-content">
           <Routes>
             <Route path="default" element={<DefaultPage />} />
-            <Route path="order" element={<OrderPage />} />
+            <Route path="orders" element={<OrderPage />} />
           </Routes>
         </section>
       </div>

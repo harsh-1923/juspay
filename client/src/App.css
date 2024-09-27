@@ -29,3 +29,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+@media (width < 1000px) {
+  .dashboard-sidebar,
+  .infopannel-wra {
+    display: none;
+  }
+}

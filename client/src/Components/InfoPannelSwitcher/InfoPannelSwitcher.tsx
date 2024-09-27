@@ -11,7 +11,7 @@ import Notifications from "../Notifications/Notifications";
 const InfoPannelSwitcher = () => {
   const { dashboardSettings, setDashboardSettings } = useDashboardContext();
   const windowSize = useWindowSize();
-  const isDesktop = windowSize > 800;
+  const isDesktop = windowSize > 1000;
 
   const toggleInfoPannel = () => {
     setDashboardSettings({
@@ -34,8 +34,8 @@ const InfoPannelSwitcher = () => {
           <Drawer.Overlay className="fixed inset-0 bg-black/40" />
           <Drawer.Content className="infopannel-vaul-content-wrapper">
             <div className="infopannel-vaul-content ">
-              <Activities />
               <Notifications />
+              <Activities />
               <Contacts />
             </div>
           </Drawer.Content>
