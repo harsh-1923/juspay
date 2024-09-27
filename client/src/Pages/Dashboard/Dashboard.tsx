@@ -9,6 +9,7 @@ import {
 
 import "./Dashboard.css";
 import DashboardSidebar from "../../Components/DashboardSidebar/DashboardSidebar";
+import InfoPannel from "../../Components/InfoPannel/InfoPannel";
 
 const Dashboard = () => {
   const { dashboardSettings } = useDashboardContext();
@@ -26,6 +27,8 @@ const Dashboard = () => {
           </Routes>
         </section>
       </div>
+
+      {dashboardSettings && dashboardSettings.showInfoPannel && <InfoPannel />}
     </div>
   );
 };

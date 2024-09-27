@@ -21,15 +21,16 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-  color: white;
 }
 
 body {
   transition: background-color 0.3s, color 0.3s;
+  scrollbar-width: thin;
+  scrollbar-color: grey transparent;
 }
 
 body.light {
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 1);
   color: #000000;
 }
 

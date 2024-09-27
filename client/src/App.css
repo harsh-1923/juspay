@@ -17,3 +17,15 @@
 .light .svg-icon {
   fill: black;
 }
+
+.dark .toast {
+  background: #171717;
+  color: white;
+  border: 1px solid rgba(87, 79, 79, 0.391);
+}
+
+.ellipsis-clip {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
