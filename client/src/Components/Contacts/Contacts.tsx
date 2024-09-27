@@ -11,6 +11,7 @@ interface ContactData {
 interface ContactProps {
   name: string;
   src: string;
+  compact?: boolean;
 }
 
 const contacts: ContactData[] = [
@@ -39,11 +40,15 @@ const Contacts: React.FC = () => {
   );
 };
 
-export const Contact: React.FC<ContactProps> = ({ name, src }) => {
+export const Contact: React.FC<ContactProps> = ({
+  name,
+  src,
+  compact = false,
+}) => {
   return (
     <li className="contact-wrapper" role="listitem">
       <UserAvatar src={src} username={name} />
-      <p className="contact-name">{name}</p>
+      {!compact && <p className="contact-name">{name}</p>}
     </li>
   );
 };
