@@ -1,7 +1,7 @@
 "use client";
 import "../charts.css";
 
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import {
@@ -11,12 +11,10 @@ import {
   ChartTooltipContent,
 } from "../../ui/chart";
 
-export const description = "A multiple line chart";
-
 interface ChartDataItem {
   month: string;
-  desktop: number;
-  mobile: number;
+  revenue: number;
+  spending: number;
 }
 
 interface TwoLineChartProps {
@@ -24,12 +22,12 @@ interface TwoLineChartProps {
 }
 
 const chartConfig: ChartConfig = {
-  desktop: {
-    label: "Desktop",
+  revenue: {
+    label: "Revenue",
     color: "var(--line-chart-1)",
   },
-  mobile: {
-    label: "Mobile",
+  spending: {
+    label: "Spending",
     color: "var(--line-chart-2)",
   },
 };
@@ -41,7 +39,7 @@ export function TwoLineChart({ chartData }: TwoLineChartProps) {
         <CardTitle>Revenue</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className="ml-[-40px]">
           <LineChart
             accessibilityLayer
             data={chartData}
@@ -58,18 +56,19 @@ export function TwoLineChart({ chartData }: TwoLineChartProps) {
               tickMargin={8}
               tickFormatter={(value) => value.slice(0, 3)}
             />
+            <YAxis axisLine={false} tickLine={false} tickMargin={4} />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <Line
-              dataKey="desktop"
+              dataKey="revenue"
               type="monotone"
-              stroke="var(--color-desktop)"
+              stroke="var(--color-revenue)"
               strokeWidth={2}
               dot={false}
             />
             <Line
-              dataKey="mobile"
+              dataKey="spending"
               type="monotone"
-              stroke="var(--color-mobile)"
+              stroke="var(--color-spending)"
               strokeWidth={2}
               dot={false}
             />

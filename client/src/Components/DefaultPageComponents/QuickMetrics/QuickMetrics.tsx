@@ -14,18 +14,18 @@ const QuickMetrics = () => {
             value={378}
           />
           <MetricTile
-            title="Customers"
+            title="Orders"
             unitType="2"
             percentageChange={11.01}
-            value={3781}
+            value={1219}
           />
         </div>
         <div className="flex items-center gap-[16px] debug">
           <MetricTile
-            title="Customers"
+            title="Revenue"
             unitType="1"
             percentageChange={11.01}
-            value={378}
+            value={695}
           />
           <MetricTile
             title="Customers"

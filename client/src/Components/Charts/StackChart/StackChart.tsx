@@ -1,6 +1,6 @@
 "use client";
 
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import {
@@ -13,21 +13,21 @@ import {
 export const description = "A stacked bar chart with a legend";
 
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
+  { month: "January", projections: 186, actuals: 80 },
+  { month: "February", projections: 305, actuals: 200 },
+  { month: "March", projections: 237, actuals: 120 },
+  { month: "April", projections: 73, actuals: 190 },
+  { month: "May", projections: 209, actuals: 130 },
+  { month: "June", projections: 214, actuals: 140 },
 ];
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  projections: {
+    label: "Projections",
     color: "var(--stacked-chart-1)",
   },
-  mobile: {
-    label: "Mobile",
+  actuals: {
+    label: "Actuals",
     color: "var(--stacked-chart-2)",
   },
 } satisfies ChartConfig;
@@ -38,7 +38,7 @@ const StackedChart = () => {
       <CardHeader>
         <CardTitle>Projections vs Actuals</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="ml-[-30px]">
         <ChartContainer config={chartConfig}>
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
@@ -49,17 +49,23 @@ const StackedChart = () => {
               axisLine={false}
               tickFormatter={(value) => value.slice(0, 3)}
             />
+            <YAxis
+              axisLine={false}
+              tickLine={false}
+              tickMargin={4}
+              tickFormatter={(value) => `${value}M`}
+            />
             <ChartTooltip content={<ChartTooltipContent hideLabel />} />
             <Bar
-              dataKey="desktop"
+              dataKey="projections"
               stackId="a"
-              fill="var(--color-desktop)"
+              fill="var(--color-projections)"
               radius={[0, 0, 4, 4]}
             />
             <Bar
-              dataKey="mobile"
+              dataKey="actuals"
               stackId="a"
-              fill="var(--color-mobile)"
+              fill="var(--color-actuals)"
               radius={[4, 4, 0, 0]}
             />
           </BarChart>

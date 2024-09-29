@@ -3,7 +3,6 @@ import React from "react";
 import * as Accordion from "@radix-ui/react-accordion";
 import { ChevronRight } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { toast } from "sonner";
 
 interface SubItem {
   name: string;
@@ -29,11 +28,9 @@ const Directory: React.FC<DirectoryViewProps> = ({
   const navigate = useNavigate();
 
   const handleClick = (item: DirectoryItem) => {
-    if (item.subs.length > 0 || !item.link || item.link === "") {
-      toast("Action Triggered");
+    if (!item.link || item.link === "") {
       return;
     }
-    console.log(item.link);
     navigate(item.link);
   };
   const renderDirectory = (items: DirectoryItem[]) => {

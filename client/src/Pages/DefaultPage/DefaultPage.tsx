@@ -117,26 +117,28 @@ const QuickMenu = () => {
           </div>
           <div>
             <MetricTile
-              title="Customers"
-              value={3781}
-              percentageChange={11.01}
+              title="Orders"
+              value={1219}
+              percentageChange={-0.03}
               type="2"
             />
           </div>
           <div>
             <MetricTile
-              title="Customers"
-              value={3781}
+              title="Revenue"
+              value={675}
               percentageChange={11.01}
               type="2"
+              unitType="$"
             />
           </div>
           <div>
             <MetricTile
-              title="Customers"
-              value={3781}
-              percentageChange={11.01}
+              title="Growth"
+              value={30.21}
+              percentageChange={6.08}
               type="3"
+              unitType="%"
             />
           </div>
         </div>
@@ -156,12 +158,18 @@ const RevenueMetrics = ({
   showCompactDashboard: boolean;
 }) => {
   const chartData = [
-    { month: "January", desktop: 186, mobile: 80 },
-    { month: "February", desktop: 305, mobile: 200 },
-    { month: "March", desktop: 237, mobile: 120 },
-    { month: "April", desktop: 73, mobile: 190 },
-    { month: "May", desktop: 209, mobile: 130 },
-    { month: "June", desktop: 214, mobile: 140 },
+    { month: "January", revenue: 186, spending: 80 },
+    { month: "February", revenue: 305, spending: 200 },
+    { month: "March", revenue: 237, spending: 120 },
+    { month: "April", revenue: 73, spending: 130 },
+    { month: "June", revenue: 214, spending: 140 },
+  ];
+
+  const revenueData = [
+    { location: "New York", revenue: "72" },
+    { location: "San Francisco", revenue: "39" },
+    { location: "Sydney", revenue: "25" },
+    { location: "Singapore", revenue: "61" },
   ];
   return (
     <div className="metrics-wrapper">
@@ -174,23 +182,21 @@ const RevenueMetrics = ({
       {!showCompactDashboard && (
         <div className="w-1/3 df-info-card">
           <div className="info-card-header">
-            <h2>Top Selling Products</h2>
+            <h2>Revenue by Locations</h2>
           </div>
           <div className="w-full flex items-center justify-center">
             <Map />
           </div>
           <div className="w-full text-[12px]">
-            {Array(4)
-              .fill(0)
-              .map(() => (
-                <div className="w-full py-[5px]">
-                  <h2 className="w-full flex items-center justify-between">
-                    <span>New York</span>
-                    <span>New York</span>
-                  </h2>
-                  <ProgressBar val={40} totalVal={100} />
-                </div>
-              ))}
+            {revenueData.map((data) => (
+              <div className="w-full py-[5px]">
+                <h2 className="w-full flex items-center justify-between">
+                  <span>{data.location}</span>
+                  <span>{data.revenue}K</span>
+                </h2>
+                <ProgressBar val={Number(data.revenue)} totalVal={100} />
+              </div>
+            ))}
           </div>
         </div>
       )}
