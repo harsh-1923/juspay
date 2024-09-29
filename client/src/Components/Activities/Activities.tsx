@@ -115,9 +115,9 @@ const Activity: React.FC<ActivityProps> = ({
 }) => {
   return (
     <motion.li
-      initial={{ scale: 0.9, opacity: 0, y: -10 }}
-      animate={{ scale: 1, opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, type: "spring", bounce: 0 }}
+      initial={{ height: 0, opacity: 0, scale: 0.5 }}
+      animate={{ height: 46, opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, type: "spring", bounce: 0.2 }}
       className="activity-wrapper"
       role="listitem"
       aria-label={`Activity: ${title}, ${formatElapsedTime(timestamp)}`}
@@ -130,7 +130,6 @@ const Activity: React.FC<ActivityProps> = ({
         <span className="activity-bar" aria-hidden="true"></span>
       </div>
       <div className="activity-details">
-        {/* Add the shimmer-effect class if isNew is true */}
         <p
           className={`activity-title ellipsis-clip ${
             isNew ? "shimmer-effect" : ""

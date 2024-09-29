@@ -56,7 +56,7 @@ const Notifications: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       addNotification();
-    }, 5000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -87,7 +87,7 @@ const Notifications: React.FC = () => {
               title={notification.title}
               icon={notification.icon}
               timestamp={notification.timestamp}
-              isNew={notification.timestamp === newNotificationTimestamp} // Pass isNew prop
+              isNew={notification.timestamp === newNotificationTimestamp}
             />
           ))}
         </ul>
@@ -104,9 +104,9 @@ const Notification: React.FC<NotificationProps> = ({
 }) => {
   return (
     <motion.li
-      initial={{ scale: 0.9, opacity: 0, y: -10 }}
-      animate={{ scale: 1, opacity: 1, y: 0 }}
-      transition={{ duration: 1, type: "spring", bounce: 0 }}
+      initial={{ height: 0, opacity: 0, scale: 0.5 }}
+      animate={{ height: 46, opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, type: "spring", bounce: 0.2 }}
       className="notification-wrapper"
       role="listitem"
       onClick={() =>
@@ -117,7 +117,6 @@ const Notification: React.FC<NotificationProps> = ({
         {icon}
       </div>
       <div className="notification-details">
-        {/* Add the shimmer-effect class if isNew is true */}
         <p
           className={`notification-title ellipsis-clip ${
             isNew ? "shimmer-effect" : ""

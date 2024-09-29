@@ -3,6 +3,7 @@ import React from "react";
 import * as Accordion from "@radix-ui/react-accordion";
 import { ChevronRight } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDashboardContext } from "@/Context/DashboardContext";
 
 interface SubItem {
   name: string;
@@ -26,13 +27,26 @@ const Directory: React.FC<DirectoryViewProps> = ({
   singleView = false,
 }) => {
   const navigate = useNavigate();
+  const { dashboardSettings, setDashboardSettings } = useDashboardContext(); // Access context
 
   const handleClick = (item: DirectoryItem) => {
     if (!item.link || item.link === "") {
       return;
     }
-    navigate(item.link);
+    const recentItem = { name: item.name, icon: item.icon, link: item.link };
+    const updatedRecents = [
+      recentItem,
+      ...dashboardSettings.recents.filter((r) => r.link !== item.link),
+    ].slice(0, 2);
+
+    setDashboardSettings({
+      ...dashboardSettings,
+      recents: updatedRecents,
+    });
+
+    navigate(item.link); // Navigate to the item link
   };
+
   const renderDirectory = (items: DirectoryItem[]) => {
     return (
       <Accordion.Root type={singleView ? "single" : "multiple"}>
@@ -45,7 +59,7 @@ const Directory: React.FC<DirectoryViewProps> = ({
                   ? "true"
                   : "false"
               }
-              onClick={() => handleClick(item)}
+              onClick={() => handleClick(item)} // Handle click
             >
               <div className="directory-chevron-wrapper">
                 {item.subs.length > 0 && <ChevronRight size={14} />}

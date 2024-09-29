@@ -4,12 +4,11 @@ import { formatElapsedTime } from "@/utils/utils";
 import { useState } from "react";
 import { Contact } from "../Contacts/Contacts";
 import * as Checkbox from "@radix-ui/react-checkbox";
-
 import "./OrderTable.css";
 import { Drawer } from "vaul";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { Filter, Plus, Sort } from "../IconSet";
-import { CheckIcon } from "lucide-react";
+import { CheckIcon, ChevronLeft, ChevronRight } from "lucide-react";
 
 const OrderTable = () => {
   const [orders] = useState<Order[]>(getOrderList());
@@ -19,8 +18,11 @@ const OrderTable = () => {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const noOfOrders = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(orders.length / noOfOrders);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSearchTerm("");
   };
@@ -51,15 +53,13 @@ const OrderTable = () => {
   const sortedOrders = [...filteredOrderDetails].sort((a, b) => {
     const dateA = new Date(a.timestamp).getTime();
     const dateB = new Date(b.timestamp).getTime();
-
-    if (sortOrder === "asc") {
-      return dateA - dateB;
-    } else {
-      return dateB - dateA;
-    }
+    return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
   });
 
-  const currentOrders = sortedOrders;
+  const paginatedOrders = sortedOrders.slice(
+    (currentPage - 1) * noOfOrders,
+    currentPage * noOfOrders
+  );
 
   const handleSelectAll = () => {
     if (selectAll) {
@@ -70,24 +70,36 @@ const OrderTable = () => {
     setSelectAll(!selectAll);
   };
 
+  const handlePageChange = (pageNumber: number) => {
+    if (pageNumber > 0 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
+  };
+
   const window = useWindowSize();
   const handleRowClick = (order: Order) => {
     if (window > 600) return;
-
     setSelectedOrder(order);
     setIsDrawerOpen(true);
   };
+
   return (
     <>
       <div className="table-controls">
         <div>
-          <button className="table-controls-button">
+          <button className="table-controls-button" aria-label="Add new order">
             <Plus />
           </button>
-          <button className="table-controls-button">
+          <button className="table-controls-button" aria-label="Filter orders">
             <Filter />
           </button>
-          <button onClick={handleSort} className="table-controls-button">
+          <button
+            onClick={handleSort}
+            className="table-controls-button"
+            aria-label={`Sort orders by date ${
+              sortOrder === "asc" ? "ascending" : "descending"
+            }`}
+          >
             <Sort />
           </button>
         </div>
@@ -95,18 +107,19 @@ const OrderTable = () => {
         <form
           role="search"
           className="order-search-form"
-          onSubmit={handleSubmit}
+          onSubmit={handleSearchSubmit}
         >
           <input
             type="search"
             id="search"
             placeholder="Search"
-            aria-label="Search"
+            aria-label="Search orders"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-          ></input>
+          />
         </form>
       </div>
+
       <table className="order-table">
         <thead className="table-header">
           <tr>
@@ -114,6 +127,7 @@ const OrderTable = () => {
               <Checkbox.Root
                 onCheckedChange={handleSelectAll}
                 checked={selectAll}
+                aria-label="Select all orders"
                 className="checkbox-ac"
               >
                 <Checkbox.Indicator className="checkbox-indicator-ac">
@@ -122,20 +136,25 @@ const OrderTable = () => {
               </Checkbox.Root>
             </th>
             <th className="ot-head cell-collapse">Order ID</th>
-            <th className="ot-head ">User</th>
+            <th className="ot-head">User</th>
             <th className="ot-head">Project</th>
             <th className="ot-head cell-collapse">Address</th>
             <th className="ot-head cell-collapse">Date</th>
-            <th className="ot-head ">Status</th>
+            <th className="ot-head">Status</th>
           </tr>
         </thead>
         <tbody>
-          {currentOrders.map((order) => (
-            <tr key={order.orderID} onClick={() => handleRowClick(order)}>
+          {paginatedOrders.map((order) => (
+            <tr
+              key={order.orderID}
+              onClick={() => handleRowClick(order)}
+              aria-label={`View details for order ${order.orderID}`}
+            >
               <td>
                 <Checkbox.Root
                   checked={selectedRows.includes(order.orderID)}
                   onCheckedChange={() => handleRowCheck(order.orderID)}
+                  aria-label={`Select order ${order.orderID}`}
                   className="checkbox-ac"
                 >
                   <Checkbox.Indicator className="checkbox-indicator-ac">
@@ -143,7 +162,7 @@ const OrderTable = () => {
                   </Checkbox.Indicator>
                 </Checkbox.Root>
               </td>
-              <td className="cell-collapse ">{order.orderID}</td>
+              <td className="cell-collapse">{order.orderID}</td>
               <td>
                 <Contact
                   name={order.contact.username}
@@ -162,6 +181,40 @@ const OrderTable = () => {
           ))}
         </tbody>
       </table>
+
+      <div className="pagination-controls" aria-label="Pagination controls">
+        <button
+          className="pagination-button"
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          aria-label="Previous page"
+        >
+          <ChevronLeft size={14} />
+        </button>
+
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index + 1}
+            className={`pagination-button ${
+              currentPage === index + 1 ? "active" : ""
+            }`}
+            onClick={() => handlePageChange(index + 1)}
+            aria-label={`Page ${index + 1}`}
+          >
+            {index + 1}
+          </button>
+        ))}
+
+        <button
+          className="pagination-button"
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          aria-label="Next page"
+        >
+          <ChevronRight size={16} />
+        </button>
+      </div>
+
       <Drawer.Root open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
         <Drawer.Portal>
           <Drawer.Overlay className="fixed inset-0 bg-black/50" />
@@ -197,26 +250,19 @@ const StatusButton = ({ status }: StatusParserProps) => {
     <button
       className="h-[32px] w-full rounded-md my-4"
       style={{ backgroundColor: color }}
+      aria-label={`Order status: ${text}`}
     >
       {text}
     </button>
   );
 };
-
 const StatusParser = ({ status }: StatusParserProps) => {
   const { text, color } = JSON.parse(status);
 
   return (
-    <div
-      style={{
-        color,
-        display: "flex",
-        alignItems: "center",
-        gap: "var(--gap-xs)",
-      }}
-    >
+    <button className="ot-status-btn " style={{ color }}>
       {text}
-    </div>
+    </button>
   );
 };
 

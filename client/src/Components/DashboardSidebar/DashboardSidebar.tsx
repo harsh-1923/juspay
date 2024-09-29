@@ -2,11 +2,14 @@ import UserDetails from "../UserDetails/UserDetails";
 import "./DashboardSidebar.css";
 import Directory from "../Directory/Directory";
 import { dashboardDirectory, pageDirectory } from "./data";
+import QuickOptions from "../QuickOptions/QuickOptions";
 
 const DashboardSidebar = () => {
   return (
     <div className="dashboard-sidebar">
       <UserDetails />
+
+      <QuickOptions />
 
       <div className="dashboard-sidebar-group">
         <div className="dashboard-sidebar-group-title">

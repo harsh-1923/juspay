@@ -1,19 +1,34 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 
-interface DashboardContextType {
-  dashboardSettings: DashboardSettings;
-  setDashboardSettings: (settings: DashboardSettings) => void;
+interface RecentItem {
+  name: string;
+  icon: JSX.Element;
+  link: string;
+}
+
+interface FavItem {
+  name: string;
+  link: string;
 }
 
 interface DashboardSettings {
   showInfoPannel: boolean;
   showSideBar: boolean;
+  recents: RecentItem[];
+  favs: FavItem[];
+}
+
+interface DashboardContextType {
+  dashboardSettings: DashboardSettings;
+  setDashboardSettings: (settings: DashboardSettings) => void;
 }
 
 const defaultContextValue: DashboardContextType = {
   dashboardSettings: {
     showInfoPannel: true,
     showSideBar: true,
+    recents: [],
+    favs: [],
   },
   setDashboardSettings: () => {},
 };
@@ -26,6 +41,8 @@ export const DashboardProvider = ({ children }: { children: ReactNode }) => {
     {
       showInfoPannel: true,
       showSideBar: true,
+      recents: [],
+      favs: [],
     }
   );
 

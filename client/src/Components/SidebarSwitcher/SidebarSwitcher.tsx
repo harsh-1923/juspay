@@ -7,6 +7,7 @@ import "./SidebarSwitcher.css";
 import { useDashboardContext } from "../../Context/DashboardContext";
 
 import { useWindowSize } from "../../hooks/useWindowSize";
+import QuickOptions from "../QuickOptions/QuickOptions";
 
 const SidebarSwitcher = () => {
   const { dashboardSettings, setDashboardSettings } = useDashboardContext();
@@ -36,6 +37,7 @@ const SidebarSwitcher = () => {
           <Drawer.Content className="sidebar-vaul-content-wrapper">
             <div className="sidebar-vaul-content ">
               <UserDetails />
+              <QuickOptions />
               <div className="dashboard-sidebar-group">
                 <div className="dashboard-sidebar-group-title">
                   <h2>Dashboards</h2>

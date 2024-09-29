@@ -95,3 +95,40 @@
 .dark .order-dialog {
   background: #262525;
 }
+
+.pagination-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.pagination-button {
+  border: none;
+
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 28px;
+  width: 28px;
+}
+
+.dark .pagination-button {
+  color: rgb(255, 255, 255);
+}
+
+.pagination-button.active {
+  background-color: var(--black-5, rgba(255, 255, 255, 0.1));
+  color: #fff;
+}
+
+.light .pagination-button.active {
+  background: var(--black-5, rgba(28, 28, 28, 0.05));
+  color: black;
+}
+
+.pagination-button:disabled {
+  background-color: #d0d0d0;
+  cursor: not-allowed;
+}
