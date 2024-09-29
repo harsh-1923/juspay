@@ -3,17 +3,19 @@ import { getOrderList } from "@/Services/OrderPageServices";
 import { formatElapsedTime } from "@/utils/utils";
 import { useState } from "react";
 import { Contact } from "../Contacts/Contacts";
+import * as Checkbox from "@radix-ui/react-checkbox";
 
 import "./OrderTable.css";
 import { Drawer } from "vaul";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { Filter, Plus, Sort } from "../IconSet";
+import { CheckIcon } from "lucide-react";
 
 const OrderTable = () => {
   const [orders] = useState<Order[]>(getOrderList());
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [selectAll, setSelectAll] = useState(false);
-  const [sortOrder, _] = useState<"asc" | "desc">("desc");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -29,6 +31,10 @@ const OrderTable = () => {
         ? prevSelectedRows.filter((id) => id !== orderID)
         : [...prevSelectedRows, orderID]
     );
+  };
+
+  const handleSort = () => {
+    setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
   };
 
   const filteredOrderDetails = orders.filter((order) => {
@@ -81,7 +87,7 @@ const OrderTable = () => {
           <button className="table-controls-button">
             <Filter />
           </button>
-          <button className="table-controls-button">
+          <button onClick={handleSort} className="table-controls-button">
             <Sort />
           </button>
         </div>
@@ -105,12 +111,15 @@ const OrderTable = () => {
         <thead className="table-header">
           <tr>
             <th className="ot-head">
-              <input
-                type="checkbox"
-                className="order-table-checkbox mt-2 mr-2 "
+              <Checkbox.Root
+                onCheckedChange={handleSelectAll}
                 checked={selectAll}
-                onChange={handleSelectAll}
-              />
+                className="checkbox-ac"
+              >
+                <Checkbox.Indicator className="checkbox-indicator-ac">
+                  <CheckIcon size={10} strokeWidth={2} />
+                </Checkbox.Indicator>
+              </Checkbox.Root>
             </th>
             <th className="ot-head cell-collapse">Order ID</th>
             <th className="ot-head ">User</th>
@@ -124,12 +133,15 @@ const OrderTable = () => {
           {currentOrders.map((order) => (
             <tr key={order.orderID} onClick={() => handleRowClick(order)}>
               <td>
-                <input
-                  type="checkbox"
+                <Checkbox.Root
                   checked={selectedRows.includes(order.orderID)}
-                  onChange={() => handleRowCheck(order.orderID)}
-                  className="ot-cell mt-2 mr-2 order-table-checkbox"
-                />
+                  onCheckedChange={() => handleRowCheck(order.orderID)}
+                  className="checkbox-ac"
+                >
+                  <Checkbox.Indicator className="checkbox-indicator-ac">
+                    <CheckIcon size={10} strokeWidth={2} />
+                  </Checkbox.Indicator>
+                </Checkbox.Root>
               </td>
               <td className="cell-collapse ">{order.orderID}</td>
               <td>

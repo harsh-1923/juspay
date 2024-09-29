@@ -14,7 +14,7 @@ import InfoPannel from "../../Components/InfoPannel/InfoPannel";
 const Dashboard = () => {
   const { dashboardSettings } = useDashboardContext();
   return (
-    <div className="dashboard-wrapper debug">
+    <div className="dashboard-wrapper">
       {dashboardSettings && dashboardSettings.showSideBar && (
         <DashboardSidebar />
       )}
