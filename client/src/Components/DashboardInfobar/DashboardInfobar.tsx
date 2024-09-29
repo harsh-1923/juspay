@@ -1,4 +1,5 @@
 import Breadcrumb from "../Breadcrumbs/Breadcrumbs";
+// import DashboardSearch from "../DashboardSearch/DashboardSearch";
 import { Refresh, Star } from "../IconSet";
 import InfoPannelSwitcher from "../InfoPannelSwitcher/InfoPannelSwitcher";
 import SidebarSwitcher from "../SidebarSwitcher/SidebarSwitcher";
@@ -16,6 +17,7 @@ const DashboardInfobar = () => {
         <Breadcrumb />
       </div>
       <div>
+        {/* <DashboardSearch /> */}
         <ThemeSwitcher />
         <button className="infobar-button">
           <Refresh />

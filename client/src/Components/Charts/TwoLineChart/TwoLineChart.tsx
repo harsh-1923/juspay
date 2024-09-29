@@ -1,13 +1,9 @@
+"use client";
+import "../charts.css";
+
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  //   CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../../ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import {
   ChartConfig,
   ChartContainer,
@@ -17,32 +13,32 @@ import {
 
 export const description = "A multiple line chart";
 
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-];
+interface ChartDataItem {
+  month: string;
+  desktop: number;
+  mobile: number;
+}
 
-const chartConfig = {
+interface TwoLineChartProps {
+  chartData: ChartDataItem[];
+}
+
+const chartConfig: ChartConfig = {
   desktop: {
     label: "Desktop",
-    color: "hsl(var(--chart-1))",
+    color: "var(--line-chart-1)",
   },
   mobile: {
     label: "Mobile",
-    color: "hsl(var(--chart-2))",
+    color: "var(--line-chart-2)",
   },
-} satisfies ChartConfig;
+};
 
-export function TwoLineChart() {
+export function TwoLineChart({ chartData }: TwoLineChartProps) {
   return (
-    <Card className="w-full bg-inherit border-none outline-none shadow-none">
+    <Card className="charts-card">
       <CardHeader>
-        <CardTitle>Line Chart - Multiple</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Revenue</CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -80,18 +76,6 @@ export function TwoLineChart() {
           </LineChart>
         </ChartContainer>
       </CardContent>
-      {/* <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-            </div>
-            <div className="flex items-center gap-2 leading-none text-muted-foreground">
-              Showing total visitors for the last 6 months
-            </div>
-          </div>
-        </div>
-      </CardFooter> */}
     </Card>
   );
 }

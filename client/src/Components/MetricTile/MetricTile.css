@@ -1,14 +1,13 @@
 .metric-tile-wrapper {
-  width: 202px !important;
-  height: 112px !important;
+  width: 100%;
+  height: 100%;
   padding: 24px;
   border-radius: var(--gap-xl);
   background-color: rgba(227, 245, 255, 1);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: var(--gap-md);
-  align-items: start;
-  justify-content: flex-start;
   color: rgba(28, 28, 28, 1);
 }
 
@@ -61,4 +60,11 @@
   font-weight: 400;
   line-height: 18px;
   text-align: left;
+}
+
+@media (width < 768px) {
+  .metric-tile-wrapper {
+    padding: 12px;
+    min-height: 112px;
+  }
 }

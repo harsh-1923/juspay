@@ -9,7 +9,7 @@ const ThemeSwitcher = () => {
 
   const playAudio = () => {
     if (audioRef.current) {
-      audioRef.current.play();
+      // audioRef.current.play();
     }
   };
   return (

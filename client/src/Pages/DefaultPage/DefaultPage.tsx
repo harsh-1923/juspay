@@ -2,6 +2,21 @@ import { useState, useEffect, useRef } from "react";
 import "./DefaultPage.css";
 import { TwoLineChart } from "@/Components/Charts/TwoLineChart/TwoLineChart";
 import Map from "@/Components/IconSet/Map";
+import { HollowPieChart } from "@/Components/Charts/HollowPieChart/HollowPieChart";
+import SalesTable from "@/Components/DefaultPageComponents/SalesTable/SalesTable";
+import ProgressBar from "@/Components/ProgressBar/ProgressBar";
+
+import MetricTile from "@/Components/MetricTile/MetricTile";
+import { useDashboardContext } from "@/Context/DashboardContext";
+import StackedChart from "@/Components/Charts/StackChart/StackChart";
+
+const salesChartData = [
+  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
+  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
+  { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
+  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
+  { browser: "other", visitors: 190, fill: "var(--color-other)" },
+];
 
 const DefaultPage = () => {
   const [showCompactDashboard, setShowCompactDashboard] = useState(false);
@@ -14,47 +29,195 @@ const DefaultPage = () => {
       }
     };
 
-    // Check initial width
     checkWidth();
 
-    // Add event listener
     window.addEventListener("resize", checkWidth);
 
-    // Clean up
     return () => window.removeEventListener("resize", checkWidth);
   }, []);
 
   return (
     <div
       ref={wrapperRef}
-      className="default-page-wrapper w-full h-full flex flex-col items-center"
+      className="default-page-wrapper w-full  flex flex-col items-center"
     >
       <div className="default-page-content w-full h-full max-w-[900px] flex flex-col items-center gap-[28px]">
         <div className="page-header">
           <h2>eCommerce</h2>
         </div>
+        <QuickMenu />
+        <RevenueMetrics showCompactDashboard={showCompactDashboard} />
 
-        {/* Display current state */}
-        <div className="text-center p-2 bg-yellow-200 text-black rounded">
-          showCompactDashboard: {showCompactDashboard ? "true" : "false"}
-        </div>
-
-        <div className="flex w-full p-4 gap-2">
-          <div
-            className={`df-info-card p-2 flex items-center justify-center ${
-              showCompactDashboard ? "w-full" : "w-2/3"
-            }`}
-          >
-            <TwoLineChart />
-          </div>
-          {!showCompactDashboard && (
-            <div className="w-1/3 p-4 flex flex-col items-center justify-start df-info-card">
-              <h2>Revenue by location</h2>
-              <Map />
+        {showCompactDashboard && (
+          <div className="flex flex-col items-center justify-between gap-[28px] w-full">
+            <HollowPieChart chartData={salesChartData} />
+            <div className="w-full df-info-card">
+              <div className="info-card-header">
+                <h2>Top Selling Products</h2>
+              </div>
+              <div className="w-full flex items-center justify-center">
+                <Map />
+              </div>
+              <div className="w-full text-[12px]">
+                {Array(4)
+                  .fill(0)
+                  .map(() => (
+                    <div className="w-full py-[5px]">
+                      <h2 className="w-full flex items-center justify-between">
+                        <span>New York</span>
+                        <span>New York</span>
+                      </h2>
+                      <ProgressBar val={40} totalVal={100} />
+                    </div>
+                  ))}
+              </div>
             </div>
-          )}
+          </div>
+        )}
+
+        <SalesMetrics showCompactDashboard={showCompactDashboard} />
+      </div>
+    </div>
+  );
+};
+
+const QuickMenu = () => {
+  const { dashboardSettings } = useDashboardContext();
+  const [isWideEnough, setIsWideEnough] = useState(true);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkWidth = () => {
+      if (wrapperRef.current) {
+        setIsWideEnough(wrapperRef.current.offsetWidth >= 760);
+      }
+    };
+    checkWidth();
+    window.addEventListener("resize", checkWidth);
+    return () => window.removeEventListener("resize", checkWidth);
+  }, [dashboardSettings]);
+
+  return (
+    <div
+      ref={wrapperRef}
+      className="metrics-wrapper"
+      style={{ flexDirection: isWideEnough ? "row" : "column" }}
+    >
+      <div
+        className={`metrics-wrapper-row ${isWideEnough ? "w-1/2" : "w-full"}`}
+      >
+        <div className="grid grid-cols-2 gap-6 h-full">
+          <div>
+            <MetricTile
+              title="Customers"
+              value={3781}
+              percentageChange={11.01}
+              type="1"
+            />
+          </div>
+          <div>
+            <MetricTile
+              title="Customers"
+              value={3781}
+              percentageChange={11.01}
+              type="2"
+            />
+          </div>
+          <div>
+            <MetricTile
+              title="Customers"
+              value={3781}
+              percentageChange={11.01}
+              type="2"
+            />
+          </div>
+          <div>
+            <MetricTile
+              title="Customers"
+              value={3781}
+              percentageChange={11.01}
+              type="3"
+            />
+          </div>
         </div>
       </div>
+      <div
+        className={`metrics-wrapper-row ${isWideEnough ? "w-1/2" : "w-full"}`}
+      >
+        <StackedChart />
+      </div>
+    </div>
+  );
+};
+
+const RevenueMetrics = ({
+  showCompactDashboard,
+}: {
+  showCompactDashboard: boolean;
+}) => {
+  const chartData = [
+    { month: "January", desktop: 186, mobile: 80 },
+    { month: "February", desktop: 305, mobile: 200 },
+    { month: "March", desktop: 237, mobile: 120 },
+    { month: "April", desktop: 73, mobile: 190 },
+    { month: "May", desktop: 209, mobile: 130 },
+    { month: "June", desktop: 214, mobile: 140 },
+  ];
+  return (
+    <div className="metrics-wrapper">
+      <div
+        className={`${showCompactDashboard ? "w-full" : "w-2/3"}
+        }`}
+      >
+        <TwoLineChart chartData={chartData} />
+      </div>
+      {!showCompactDashboard && (
+        <div className="w-1/3 df-info-card">
+          <div className="info-card-header">
+            <h2>Top Selling Products</h2>
+          </div>
+          <div className="w-full flex items-center justify-center">
+            <Map />
+          </div>
+          <div className="w-full text-[12px]">
+            {Array(4)
+              .fill(0)
+              .map(() => (
+                <div className="w-full py-[5px]">
+                  <h2 className="w-full flex items-center justify-between">
+                    <span>New York</span>
+                    <span>New York</span>
+                  </h2>
+                  <ProgressBar val={40} totalVal={100} />
+                </div>
+              ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const SalesMetrics = ({
+  showCompactDashboard,
+}: {
+  showCompactDashboard: boolean;
+}) => {
+  return (
+    <div className="metrics-wrapper">
+      <div
+        className={`df-info-card ${showCompactDashboard ? "w-full" : "w-2/3"}`}
+      >
+        <div className="info-card-header">
+          <h2>Top Selling Products</h2>
+        </div>
+        <SalesTable />
+      </div>
+      {!showCompactDashboard && (
+        <div className="w-1/3">
+          <HollowPieChart chartData={salesChartData} />
+        </div>
+      )}
     </div>
   );
 };

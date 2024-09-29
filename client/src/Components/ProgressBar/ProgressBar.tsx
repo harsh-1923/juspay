@@ -10,12 +10,13 @@ const ProgressBar = ({ val, totalVal }: ProgressBarProps) => {
   return (
     <div
       style={{
-        backgroundColor: "rgba(1, 1, 1, 0.2)",
+        backgroundColor: "var(--stacked-chart-2)",
         borderRadius: "5px",
-        height: "2px",
+        height: "4px",
         width: "100%",
         position: "relative",
         overflow: "hidden",
+        margin: "2px 0",
       }}
     >
       <div
