@@ -1,6 +1,6 @@
 import MetricTile from "@/Components/MetricTile/MetricTile";
 import "./QuickMetrics.css";
-import { StackedbarChart } from "@/Components/Charts/StackedBarChart/StackedbarChart";
+import StackedChart from "@/Components/Charts/StackChart/StackChart";
 
 const QuickMetrics = () => {
   return (
@@ -36,7 +36,7 @@ const QuickMetrics = () => {
         </div>
       </div>
       <div className="w-1/2">
-        <StackedbarChart />
+        <StackedChart />
       </div>
     </div>
   );
