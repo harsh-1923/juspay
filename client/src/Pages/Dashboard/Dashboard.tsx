@@ -10,6 +10,7 @@ import {
 import "./Dashboard.css";
 import DashboardSidebar from "../../Components/DashboardSidebar/DashboardSidebar";
 import InfoPannel from "../../Components/InfoPannel/InfoPannel";
+import LandingPage from "../LandingPage/LandingPage";
 
 const Dashboard = () => {
   const { dashboardSettings } = useDashboardContext();
@@ -22,6 +23,7 @@ const Dashboard = () => {
         <DashboardInfobar />
         <section className="dashboard-content">
           <Routes>
+            <Route path="" element={<LandingPage />} />
             <Route path="default" element={<DefaultPage />} />
             <Route path="orders" element={<OrderPage />} />
           </Routes>

@@ -9,6 +9,7 @@ import { Drawer } from "vaul";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { Filter, Plus, Sort } from "../IconSet";
 import { CheckIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import OrderDetails from "../OrderDetails/OrderDetails";
 
 const OrderTable = () => {
   const [orders] = useState<Order[]>(getOrderList());
@@ -219,7 +220,7 @@ const OrderTable = () => {
         <Drawer.Portal>
           <Drawer.Overlay className="fixed inset-0 bg-black/50" />
           <Drawer.Content className="ot-drawer-content">
-            <div className="p-4 rounded-t-[10px] flex-1">
+            {/* <div className="p-4 rounded-t-[10px] flex-1">
               <div className="py-4">
                 <Drawer.Title className="text-[18px] flex justify-between items-center font-semibold mb-4">
                   <span>Order Details</span>{" "}
@@ -235,7 +236,8 @@ const OrderTable = () => {
                   </div>
                 )}
               </div>
-            </div>
+            </div> */}
+            <OrderDetails orderDetails={selectedOrder} />
           </Drawer.Content>
         </Drawer.Portal>
       </Drawer.Root>
@@ -243,19 +245,6 @@ const OrderTable = () => {
   );
 };
 
-const StatusButton = ({ status }: StatusParserProps) => {
-  const { text, color } = JSON.parse(status);
-
-  return (
-    <button
-      className="h-[32px] w-full rounded-md my-4"
-      style={{ backgroundColor: color }}
-      aria-label={`Order status: ${text}`}
-    >
-      {text}
-    </button>
-  );
-};
 const StatusParser = ({ status }: StatusParserProps) => {
   const { text, color } = JSON.parse(status);
 

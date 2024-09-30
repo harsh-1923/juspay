@@ -24,7 +24,7 @@ const QuickOptions = () => {
                 <li key={index} className="recent-item">
                   <button
                     onClick={() => navigate(item.link)}
-                    className="w-full"
+                    className="w-full debug"
                   >
                     <div className="w-[5px] h-[5px] bg-yellow-500 rounded-full"></div>
                     <p>{item.name}</p>
@@ -42,7 +42,7 @@ const QuickOptions = () => {
           {dashboardSettings.recents.length > 0 ? (
             <ul className="w-full ">
               {dashboardSettings.recents.map((item, index) => (
-                <li key={index} className="recent-item ">
+                <li key={index} className="recent-item">
                   <button
                     onClick={() => navigate(item.link)}
                     className="w-full"
