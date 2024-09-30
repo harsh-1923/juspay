@@ -1,14 +1,40 @@
 import "./LandingPage.css";
 import Video from "@/Components/Video/Video";
+import { Link } from "react-router-dom";
 
 import { Tweet } from "react-tweet";
 
 const LandingPage = () => {
   return (
     <section className="max-w-[900px]">
-      <h2 className="text-xl font-semibold">Introduction to Assignment Work</h2>
+      <h2 className="text-xl font-semibold">Design Doc</h2>
       <br />
       <br />
+      <p>
+        This page is a brief of the design choices I made while creating the
+        Dashboard, the Orders Page and the Default Page fron the Figma Files.{" "}
+      </p>
+
+      <br />
+      <br />
+
+      <div className="df-info-card">
+        <p>
+          In case you do not want to read the Design Doc first, you can visit
+          the Default Page (Dashboard Landing) and the Order Page by following
+          the links below. The same links are also available in the sidebar on
+          the left.
+        </p>
+
+        <div className="flex items-center justify-between gap-[12px]">
+          <Link to="/default" className="blue-button">
+            Default Page
+          </Link>
+          <Link to="/orders" className="blue-button">
+            Orders Page
+          </Link>
+        </div>
+      </div>
 
       <br />
       <br />
