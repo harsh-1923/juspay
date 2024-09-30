@@ -4,6 +4,7 @@ import * as Accordion from "@radix-ui/react-accordion";
 import { ChevronRight } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDashboardContext } from "@/Context/DashboardContext";
+import { toast } from "sonner";
 
 interface SubItem {
   name: string;
@@ -69,7 +70,11 @@ const Directory: React.FC<DirectoryViewProps> = ({
             </Accordion.Trigger>
             <Accordion.Content className="directory-content">
               {item.subs.map((sub) => (
-                <button key={sub.name} className="directory-folder">
+                <button
+                  onClick={() => toast(`Naviagting to ${sub.name}`)}
+                  key={sub.name}
+                  className="directory-folder"
+                >
                   {sub.name}
                 </button>
               ))}

@@ -32,12 +32,12 @@
 }
 
 .directory-folder:hover,
-:focus-visible {
+.directory-folder:focus-visible {
   background: var(--black-5, rgba(28, 28, 28, 0.05));
 }
 
 .dark .directory-folder:hover,
-:focus-visible {
+.dark .directory-folder:focus-visible {
   background: var(--black-5, rgba(255, 255, 255, 0.1));
 }
 

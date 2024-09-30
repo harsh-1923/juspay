@@ -96,7 +96,6 @@ export const dashboardDirectory: DirectoryItem[] = [
   {
     name: "eCommerce",
     icon: <Ecommerce />,
-    link: "/ecommerce",
     subs: [
       { name: "Ecommerce 1", link: "" },
       { name: "Ecommerce 2", link: "" },
@@ -106,7 +105,6 @@ export const dashboardDirectory: DirectoryItem[] = [
   {
     name: "Projects",
     icon: <Projects />,
-    link: "/projects",
     subs: [
       { name: "Projects 1", link: "" },
       { name: "Projects 2", link: "" },
@@ -116,7 +114,6 @@ export const dashboardDirectory: DirectoryItem[] = [
   {
     name: "Online Courses",
     icon: <OnlineCourses />,
-    link: "/online-courses",
     subs: [
       { name: "Courses 1", link: "" },
       { name: "Courses 2", link: "" },
