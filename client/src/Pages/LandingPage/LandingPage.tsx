@@ -297,8 +297,9 @@ const LandingPage = () => {
         <p>Here are some of my best experiments.</p>
 
         <Tweet id="1808649775040114784" />
+        <Tweet id="1809065534757220420" />
         <Tweet id="1794379039144333443" />
-        <Tweet id="1805696523227066707" />
+        <Tweet id="1812521794173038768" />
       </div>
 
       <p className="py-16">
