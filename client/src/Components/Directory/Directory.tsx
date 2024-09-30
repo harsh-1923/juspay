@@ -45,7 +45,7 @@ const Directory: React.FC<DirectoryViewProps> = ({
       recents: updatedRecents,
     });
 
-    navigate(item.link); // Navigate to the item link
+    navigate(item.link);
   };
 
   const renderDirectory = (items: DirectoryItem[]) => {
@@ -56,11 +56,13 @@ const Directory: React.FC<DirectoryViewProps> = ({
             <Accordion.Trigger
               className="directory-folder"
               data-dir-active={
-                item.link && useLocation().pathname.includes(item.link)
+                item.link === "/"
+                  ? useLocation().pathname === "/"
+                  : item.link && useLocation().pathname.includes(item.link)
                   ? "true"
                   : "false"
               }
-              onClick={() => handleClick(item)} // Handle click
+              onClick={() => handleClick(item)}
             >
               <div className="directory-chevron-wrapper">
                 {item.subs.length > 0 && <ChevronRight size={14} />}
