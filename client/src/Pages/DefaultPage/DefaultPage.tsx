@@ -11,11 +11,10 @@ import { useDashboardContext } from "@/Context/DashboardContext";
 import StackedChart from "@/Components/Charts/StackChart/StackChart";
 
 const salesChartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 190, fill: "var(--color-other)" },
+  { type: "direct", sales: 300.54, fill: "var(--color-direct)" },
+  { type: "affiliate", sales: 135.18, fill: "var(--color-affiliate)" },
+  { type: "sponsor", sales: 154.02, fill: "var(--color-sponsor)" },
+  { type: "email", sales: 48.96, fill: "var(--color-email)" },
 ];
 
 const DefaultPage = () => {

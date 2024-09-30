@@ -16,10 +16,11 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "../../ui/chart";
+import { capitalizeWords } from "@/utils/utils";
 
 interface ChartDataItem {
-  browser: string;
-  visitors: number;
+  type: string;
+  sales: number;
   fill: string;
 }
 
@@ -28,8 +29,8 @@ interface HollowPieChartProps {
 }
 
 export function HollowPieChart({ chartData }: HollowPieChartProps) {
-  const totalVisitors = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
+  const totalAmount = React.useMemo(() => {
+    return chartData.reduce((acc, curr) => acc + curr.sales, 0);
   }, [chartData]);
 
   const chartConfig: ChartConfig = React.useMemo(() => {
@@ -39,8 +40,8 @@ export function HollowPieChart({ chartData }: HollowPieChartProps) {
       },
     };
     chartData.forEach((item, index) => {
-      config[item.browser] = {
-        label: item.browser.charAt(0).toUpperCase() + item.browser.slice(1),
+      config[item.type] = {
+        label: item.type.charAt(0).toUpperCase() + item.type.slice(1),
         color: `hsl(var(--chart-${index + 1}))`,
       };
     });
@@ -64,8 +65,8 @@ export function HollowPieChart({ chartData }: HollowPieChartProps) {
             />
             <Pie
               data={chartData}
-              dataKey="visitors"
-              nameKey="browser"
+              dataKey="sales"
+              nameKey="type"
               innerRadius={60}
               outerRadius={70}
               cornerRadius={5}
@@ -86,14 +87,14 @@ export function HollowPieChart({ chartData }: HollowPieChartProps) {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
+                          {totalAmount.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Visitors
+                          Total Sales
                         </tspan>
                       </text>
                     );
@@ -105,8 +106,19 @@ export function HollowPieChart({ chartData }: HollowPieChartProps) {
         </ChartContainer>
       </CardContent>
       <CardFooter>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident,
-        laudantium.
+        <div className="grid grid-cols-2 gap-4 h-full w-full text-xs">
+          {chartData.map((data, index) => (
+            <>
+              <div
+                style={{ color: `hsl(var(--chart-${index + 1}))` }}
+                className="flex w-full items-center justify-between font-semibold"
+              >
+                <p>{capitalizeWords(data.type)}</p>
+                <p>${data.sales}</p>
+              </div>
+            </>
+          ))}
+        </div>
       </CardFooter>
     </Card>
   );
