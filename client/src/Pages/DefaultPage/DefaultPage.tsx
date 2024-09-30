@@ -9,7 +9,6 @@ import ProgressBar from "@/Components/ProgressBar/ProgressBar";
 import MetricTile from "@/Components/MetricTile/MetricTile";
 import { useDashboardContext } from "@/Context/DashboardContext";
 import StackedChart from "@/Components/Charts/StackChart/StackChart";
-import { useWindowSize } from "@/hooks/useWindowSize";
 
 const salesChartData = [
   { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
@@ -21,13 +20,11 @@ const salesChartData = [
 
 const DefaultPage = () => {
   const [showCompactDashboard, setShowCompactDashboard] = useState(false);
-  const [width, setWidth] = useState(useWindowSize());
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkWidth = () => {
       if (wrapperRef.current) {
-        setWidth(wrapperRef.current.offsetWidth);
         setShowCompactDashboard(wrapperRef.current.offsetWidth < 700);
       }
     };
@@ -39,25 +36,15 @@ const DefaultPage = () => {
     return () => window.removeEventListener("resize", checkWidth);
   }, []);
 
-  const { dashboardSettings } = useDashboardContext();
-
-  useEffect(() => {
-    if (wrapperRef && wrapperRef.current) {
-      setWidth(wrapperRef.current.offsetWidth);
-    }
-  }, [dashboardSettings]);
-
   return (
     <div
       ref={wrapperRef}
-      className="default-page-wrapper w-full  flex flex-col items-center border-2 border-yellow-300"
+      className="default-page-wrapper w-full  flex flex-col items-center"
     >
       <div className="default-page-content w-full h-full max-w-[900px] flex flex-col items-center gap-[28px] ">
         <div className="page-header">
           <h2>eCommerce</h2>
         </div>
-
-        <h2 className="text-2xl">Available Width: {width - 63}px</h2>
 
         <QuickMenu />
         <RevenueMetrics showCompactDashboard={showCompactDashboard} />

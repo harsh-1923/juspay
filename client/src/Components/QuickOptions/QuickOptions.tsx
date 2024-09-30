@@ -24,7 +24,7 @@ const QuickOptions = () => {
                 <li key={index} className="recent-item">
                   <button
                     onClick={() => navigate(item.link)}
-                    className="w-full debug"
+                    className="w-full"
                   >
                     <div className="w-[5px] h-[5px] bg-yellow-500 rounded-full"></div>
                     <p>{item.name}</p>

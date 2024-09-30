@@ -1,3 +1,4 @@
+import { Book } from "lucide-react";
 import {
   Account,
   Blog,
@@ -84,6 +85,12 @@ export const dashboardDirectory: DirectoryItem[] = [
     name: "Orders",
     icon: <Order />,
     link: "/orders",
+    subs: [],
+  },
+  {
+    name: "Design Doc",
+    icon: <Book />,
+    link: "/",
     subs: [],
   },
   {

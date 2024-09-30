@@ -28,7 +28,7 @@ const defaultContextValue: DashboardContextType = {
     showInfoPannel: true,
     showSideBar: true,
     recents: [],
-    favs: [],
+    favs: [{ name: "Design Doc", link: "/" }],
   },
   setDashboardSettings: () => {},
 };
@@ -42,7 +42,7 @@ export const DashboardProvider = ({ children }: { children: ReactNode }) => {
       showInfoPannel: true,
       showSideBar: true,
       recents: [],
-      favs: [],
+      favs: [{ name: "Design Doc", link: "/" }],
     }
   );
 

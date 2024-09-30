@@ -1,12 +1,19 @@
-import { Book } from "lucide-react";
 import "./LandingPage.css";
-import { Link } from "react-router-dom";
 import Video from "@/Components/Video/Video";
+
+import { Tweet } from "react-tweet";
 
 const LandingPage = () => {
   return (
     <section className="max-w-[900px]">
       <h2 className="text-xl font-semibold">Introduction to Assignment Work</h2>
+      <br />
+      <br />
+
+      <br />
+      <br />
+
+      <h2 className="text-xl font-semibold">Tech Stack</h2>
       <br />
       <br />
       <p>
@@ -15,7 +22,6 @@ const LandingPage = () => {
         CSS used for some components to expedite development due to time
         constraints.
       </p>
-      <br />
       <br />
       <p>
         The app also uses Radix Primitives to create accessible components with
@@ -164,29 +170,143 @@ const LandingPage = () => {
         src="/video/Details.mov"
         className="outline-1 outline-white/20 outline mx-auto max-w-[350px]"
       />
-      <div className="df-info-card mt-4 flex items-center">
+
+      <br />
+      <br />
+
+      <h2 className="text-xl font-semibold">Context and State Management</h2>
+      <br />
+      <br />
+
+      <p>
+        I am using the React Context API to create two contexts: ThemeContext
+        and a DashboardContext.
+        <br />
+        <br />
+        ThemeContext maintains the active theme of the dashboard, while
+        DashboardContext manages dashboard settings such as showInfoPanel
+        (toggles the right sidebar), showSidebar (toggles the dashboard
+        navigation options), recents (a stack that keeps track of the last two
+        visited pages for quick navigation), and favorites (a list of pages that
+        users can mark as favorites).
+        <br />
+        <br />
+      </p>
+
+      <Video
+        src="/video/Context.mov"
+        className="outline-1 outline-white/20 outline mx-auto"
+      />
+
+      <br />
+      <br />
+
+      <h2 className="text-xl font-semibold">Conclusion</h2>
+      <br />
+      <br />
+
+      <p className="font-semibold mb-4">Challenges</p>
+      <p>
+        The most challenging aspect of the build was designing a fluid and
+        intuitive dashboard for smaller screens. I aimed to avoid the common
+        approach of merely changing flex directions, which often leads to a
+        repetitive layout. Instead, I focused on creating a self-explanatory
+        design that emphasizes ease of use.
+      </p>
+      <br />
+      <br />
+
+      <p className="font-semibold mb-4">Scope of Improvment</p>
+      <p>
+        There are areas I would like to work on and improve given the time.
+        <br />
+        Like having fallbacks, skeletons, suspense states for slow network
+        connections etc, optimising the readability of certain sections of the
+        codebase and making the chart components more flexible.
+        <br />
+        <br />
+        However, I consciously choose to focus on the "feel" of the site over
+        these as I felt that it could create more impact over the others.
+        Besides the requirements mentioned in the assignment, seemed to be more
+        focused on creating the UI for the given role.
+      </p>
+
+      <br />
+      <br />
+
+      <p className="font-semibold mb-4">Learning</p>
+      <p>
+        My biggest take away from the project would be handling complex layouts
+        with a mix of media queries and JS. It was a good experience to follow a
+        industry standard Figma Design and developing it.
+      </p>
+
+      {/* <TweetEmbed tweetId="1840527089751277664" /> */}
+
+      <div className="df-info-card mt-16 flex p-4">
         <h2 className="shimmer-effect text-xl md:text-2xl font-semibold">
-          Design Doc: Everything on the site
+          My 2 cents on why you should consider me.
         </h2>
 
-        <p className="max-w-[400px] text-center">
-          I've put together some notes on my design and development process,
-          sharing the choices I made along the way.
+        <p>
+          I have a keen interest in UI/UX and deeply consider how user
+          interfaces can be designed to engage users effectively. Over the past
+          year, I have been actively working on developing my skills in this
+          area.
           <br />
-          <br />
-          Feel free to take a quick look!
+          <br />I frequently share my work on my portfolio{" "}
+          <a
+            href="https://www.imharshsharma.in"
+            className="text-blue-400"
+            target="_blank"
+          >
+            imharshsharma.in
+          </a>{" "}
+          and on my{" "}
+          <a
+            href="https://x.com/mai_sharmaji"
+            className="text-blue-400"
+            target="_blank"
+          >
+            X (Twitter)
+          </a>{" "}
+          account.
         </p>
 
-        <Link
-          to="/design
-        "
-        >
-          <button className="design-doc-button">
-            <Book size={14} />
-            Design Doc
-          </button>
-        </Link>
+        <p>
+          I am currently working on a npm package,{" "}
+          <a
+            href="https://suchidocs.in/"
+            className="text-blue-400"
+            target="_blank"
+          >
+            Suchi
+          </a>{" "}
+          that creates Index (Table of Contents) for your pages and articles.
+          See the full{" "}
+          <a
+            href="https://suchidocs.in/"
+            className="text-blue-400"
+            target="_blank"
+          >
+            documentation
+          </a>{" "}
+          here.
+        </p>
+
+        <p>Here are some of my best experiments.</p>
+
+        <Tweet id="1808649775040114784" />
+        <Tweet id="1794379039144333443" />
+        <Tweet id="1805696523227066707" />
       </div>
+
+      <p className="py-16">
+        Thank you for taking the tiem out and sticking around till here. Looking
+        forward to having a conversation soon!!{" "}
+      </p>
+
+      <div className="h-[100px]" />
     </section>
   );
 };
