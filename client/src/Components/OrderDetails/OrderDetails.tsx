@@ -44,7 +44,7 @@ export default function OrderDetails({
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto  shadow-lg rounded-lg overflow-hidden">
+    <div className="w-full max-w-4xl mx-auto shadow-lg rounded-lg overflow-hidden">
       <div className="p-6">
         <div className="flex justify-between items-center mb-4">
           <div>

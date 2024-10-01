@@ -17,6 +17,13 @@ const salesChartData = [
   { type: "email", sales: 48.96, fill: "var(--color-email)" },
 ];
 
+const revenueData = [
+  { location: "New York", revenue: "72" },
+  { location: "San Francisco", revenue: "39" },
+  { location: "Sydney", revenue: "25" },
+  { location: "Singapore", revenue: "61" },
+];
+
 const DefaultPage = () => {
   const [showCompactDashboard, setShowCompactDashboard] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -59,17 +66,15 @@ const DefaultPage = () => {
                 <Map />
               </div>
               <div className="w-full text-[12px]">
-                {Array(4)
-                  .fill(0)
-                  .map(() => (
-                    <div className="w-full py-[5px]">
-                      <h2 className="w-full flex items-center justify-between">
-                        <span>New York</span>
-                        <span>New York</span>
-                      </h2>
-                      <ProgressBar val={40} totalVal={100} />
-                    </div>
-                  ))}
+                {revenueData.map((data) => (
+                  <div className="w-full py-[5px]">
+                    <h2 className="w-full flex items-center justify-between">
+                      <span>{data.location}</span>
+                      <span>{data.revenue}K</span>
+                    </h2>
+                    <ProgressBar val={Number(data.revenue)} totalVal={100} />
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -165,12 +170,6 @@ const RevenueMetrics = ({
     { month: "June", revenue: 214, spending: 140 },
   ];
 
-  const revenueData = [
-    { location: "New York", revenue: "72" },
-    { location: "San Francisco", revenue: "39" },
-    { location: "Sydney", revenue: "25" },
-    { location: "Singapore", revenue: "61" },
-  ];
   return (
     <div className="metrics-wrapper">
       <div
