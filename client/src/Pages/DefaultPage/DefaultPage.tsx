@@ -25,6 +25,7 @@ const revenueData = [
 ];
 
 const DefaultPage = () => {
+  const { dashboardSettings } = useDashboardContext();
   const [showCompactDashboard, setShowCompactDashboard] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -40,7 +41,7 @@ const DefaultPage = () => {
     window.addEventListener("resize", checkWidth);
 
     return () => window.removeEventListener("resize", checkWidth);
-  }, []);
+  }, [dashboardSettings.showInfoPannel, dashboardSettings.showSideBar]);
 
   return (
     <div

@@ -28,6 +28,7 @@
 
 :root {
   font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+
   line-height: 1.5;
   font-size: 14px;
   font-weight: 400;
@@ -44,7 +45,7 @@
 body {
   /* transition: background-color 0.3s, color 0.3s; */
   scrollbar-width: thin;
-  scrollbar-color: grey transparent;
+  scrollbar-color: rgba(186, 186, 186, 0.447) transparent;
 }
 
 body.light {
@@ -84,9 +85,9 @@ button:disabled {
   background-color: inherit !important;
 }
 
-form:focus-within {
+/* form:focus-within {
   outline: 1px solid rgba(91, 137, 174, 0.299);
-}
+} */
 
 @media (width < 768px) {
   input {

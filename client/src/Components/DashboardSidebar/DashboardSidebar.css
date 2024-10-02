@@ -9,7 +9,6 @@
   border-right: 1px solid var(--black-10, rgba(28, 28, 28, 0.1));
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: grey transparent;
   padding: 20px 16px;
 }
 

@@ -1,65 +1,69 @@
 import React, { useEffect, useState } from "react";
 import { formatElapsedTime } from "../../utils/utils";
 import "./Notifications.css";
-import { Bug, Subscribe, User } from "../IconSet";
+import { Subscribe } from "../IconSet";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
+import { NotificationData, NotificationProps } from "./notificationTypes";
+import { initialNotifications } from "./utils";
+import { Skeleton } from "../ui/skeleton";
 
-interface NotificationData {
-  title: string;
-  timestamp: string;
-  icon: React.ReactNode;
-}
-
-interface NotificationProps {
-  icon: React.ReactNode;
-  timestamp: string;
-  title: string;
-  isNew: boolean; // New prop to indicate if the notification is new
-}
-
-const initialNotifications: NotificationData[] = [
-  {
-    title: "You have a bug that needs resolution",
-    timestamp: new Date().toISOString(),
-    icon: <Bug />,
-  },
-  {
-    title: "New user registered",
-    timestamp: "2024-09-22T09:30:15.000Z",
-    icon: <User />,
-  },
-  {
-    title: "Andi Lane subscribed to you",
-    timestamp: "2024-09-18T07:45:00.000Z",
-    icon: <Subscribe />,
-  },
-];
+/*
+ * Responsible for fetching all the notifications data
+ * and rendering each individual notification.
+ * Simulates a network call with a delay.
+ */
+const fetchNotifications = async (): Promise<NotificationData[]> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(initialNotifications);
+    }, 2000);
+  });
+};
 
 const Notifications: React.FC = () => {
-  const [notifications, setNotifications] =
-    useState<NotificationData[]>(initialNotifications);
+  const [notifications, setNotifications] = useState<NotificationData[]>([]);
   const [newNotificationTimestamp, setNewNotificationTimestamp] = useState<
     string | null
   >(null);
+  const [areNotificationsLoading, setAreNotificationsLoading] =
+    useState<boolean>(true);
+  const [isNotificationAdded, setIsNotificationAdded] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchNotifications();
+        setNotifications(data);
+        setAreNotificationsLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch notifications:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const addNotification = () => {
-    const newActivity: NotificationData = {
-      title: "Natali subscribed to you",
-      timestamp: new Date().toISOString(),
-      icon: <Subscribe />,
-    };
-    setNotifications([newActivity, ...notifications]);
-    setNewNotificationTimestamp(newActivity.timestamp);
+    if (!isNotificationAdded) {
+      const newNotification: NotificationData = {
+        title: "Natali subscribed to you",
+        timestamp: new Date().toISOString(),
+        icon: <Subscribe />,
+      };
+      setNotifications([newNotification, ...notifications]);
+      setNewNotificationTimestamp(newNotification.timestamp);
+      setIsNotificationAdded(true);
+    }
   };
 
   useEffect(() => {
     const timer = setTimeout(() => {
       addNotification();
-    }, 2000);
+    }, 5000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [notifications]);
 
   useEffect(() => {
     if (newNotificationTimestamp) {
@@ -77,20 +81,32 @@ const Notifications: React.FC = () => {
       aria-labelledby="notifications-heading"
     >
       <header className="info-group-header">
-        <h2 id="notifications-heading ">Notifications</h2>
+        <h2 id="notifications-heading">Notifications</h2>
       </header>
       <AnimatePresence initial={false} mode="popLayout">
-        <ul role="list" className="info-group-list">
-          {notifications.map((notification) => (
-            <Notification
-              key={notification.timestamp}
-              title={notification.title}
-              icon={notification.icon}
-              timestamp={notification.timestamp}
-              isNew={notification.timestamp === newNotificationTimestamp}
-            />
-          ))}
-        </ul>
+        {areNotificationsLoading ? (
+          <ul className="info-group-list">
+            {Array(3)
+              .fill(0)
+              .map(() => (
+                <li className="notification-wrapper" key={Math.random()}>
+                  <Skeleton className="notification-wrapper" />
+                </li>
+              ))}
+          </ul>
+        ) : (
+          <ul role="list" className="info-group-list">
+            {notifications.map((notification) => (
+              <Notification
+                key={notification.timestamp}
+                title={notification.title}
+                icon={notification.icon}
+                timestamp={notification.timestamp}
+                isNew={notification.timestamp === newNotificationTimestamp}
+              />
+            ))}
+          </ul>
+        )}
       </AnimatePresence>
     </section>
   );

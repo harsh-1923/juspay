@@ -8,7 +8,6 @@
   flex-direction: column;
   gap: 24px;
   scrollbar-width: thin;
-  scrollbar-color: grey transparent;
 }
 
 .dark .infopannel-wrapper {

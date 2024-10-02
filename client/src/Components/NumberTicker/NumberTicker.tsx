@@ -1,6 +1,4 @@
-"use client";
-
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
 
 interface NumberTickerProps {
@@ -8,25 +6,23 @@ interface NumberTickerProps {
   duration?: number;
 }
 
+/*
+ * Create the Number Ticker Animation using Framer Motion APIs
+ *
+ * TODO: The same could also be created with CSS keyframes,
+ * however for the purpose of this assignment, I decided to use
+ * Framer Motion for faster implementation
+ */
+
 export function NumberTicker({ endValue, duration = 2 }: NumberTickerProps) {
-  const [isClient, setIsClient] = useState(false);
   const spring = useSpring(0, { duration: duration * 1000, bounce: 0.1 });
   const display = useTransform(spring, (current) =>
     Math.floor(current).toLocaleString()
   );
 
   useEffect(() => {
-    setIsClient(true);
     spring.set(endValue);
   }, [spring, endValue]);
-
-  if (!isClient) {
-    return (
-      <div aria-live="polite" className="text-4xl font-bold tabular-nums">
-        0
-      </div>
-    );
-  }
 
   return (
     <div className="text-inherit">

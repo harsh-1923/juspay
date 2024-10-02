@@ -1,51 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { formatElapsedTime } from "../../utils/utils";
-
 import "./Activities.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import UserAvatar from "../UserAvatar";
+import { ActivityData, ActivityProps, initialActivities } from "./utils";
 
-interface ActivityData {
-  title: string;
-  timestamp: string;
-  src: string;
-}
-
-interface ActivityProps {
-  title: string;
-  timestamp: string;
-  src: string;
-  isNew: boolean; // New prop to indicate if the activity is new
-}
-
-const initialActivities: ActivityData[] = [
-  {
-    title: "Released a new version",
-    timestamp: new Date().toISOString(),
-    src: "/images/ContactImages/DrewCano.png",
-  },
-  {
-    title: "Fixed a critical bug",
-    timestamp: "2024-09-22T09:30:15.000Z",
-    src: "/images/ContactImages/AndiLane.png",
-  },
-  {
-    title: "Deployed to production",
-    timestamp: "2024-09-18T07:45:00.000Z",
-    src: "/images/ContactImages/KateMorrison.png",
-  },
-  {
-    title: "Code review completed",
-    timestamp: "2024-08-29T20:20:12.000Z",
-    src: "/images/ContactImages/OrlandoDiggs.png",
-  },
-  {
-    title: "Merged PR into main",
-    timestamp: "2024-07-01T10:12:30.000Z",
-    src: "/images/ContactImages/KorayOkumus.png",
-  },
-];
+/*
+ * Responsible for fetching all the activities data from the backend
+ * and rendering each individual activity.
+ *
+ *
+ * https://www.figma.com/design/XBEbJlKyCR4kdwlhJvzAUS/UI-Developer-Assignment?node-id=2-10420&node-type=frame&t=HXKH7ZW9rGb62fvp-11
+ */
+// const fetchActivities = async (): Promise<ActivityData[]> => {
+//   return new Promise((resolve) => {
+//     resolve(initialActivities);
+//   });
+// };
 
 const Activities: React.FC = () => {
   const [activities, setActivities] =
@@ -53,24 +25,35 @@ const Activities: React.FC = () => {
   const [newActivityTimestamp, setNewActivityTimestamp] = useState<
     string | null
   >(null);
+  /**
+   * isActivityAdded is used to add additional classNames to new activities,
+   * this may be eliminated by adding classnames directlt to new packtes of data
+   * comming from a websocket or debounced fetch calls
+   */
+  const [isActivityAdded, setIsActivityAdded] = useState(false);
 
   const addActivity = () => {
-    const newActivity: ActivityData = {
-      title: "New project onboarded",
-      timestamp: new Date().toISOString(),
-      src: "/images/ContactImages/KorayOkumus.png",
-    };
-    setActivities([newActivity, ...activities]);
-    setNewActivityTimestamp(newActivity.timestamp);
+    if (!isActivityAdded) {
+      const newActivity: ActivityData = {
+        title: "New project onboarded",
+        timestamp: new Date().toISOString(),
+        src: "/images/ContactImages/KorayOkumus.png",
+      };
+      setActivities([newActivity, ...activities]);
+      setNewActivityTimestamp(newActivity.timestamp);
+      setIsActivityAdded(true);
+    }
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      addActivity();
-    }, 5000);
+    if (!isActivityAdded) {
+      const timer = setTimeout(() => {
+        addActivity();
+      }, 5000);
 
-    return () => clearTimeout(timer);
-  }, []);
+      return () => clearTimeout(timer);
+    }
+  }, [activities, isActivityAdded]);
 
   useEffect(() => {
     if (newActivityTimestamp) {
@@ -98,7 +81,7 @@ const Activities: React.FC = () => {
               title={activity.title}
               timestamp={activity.timestamp}
               src={activity.src}
-              isNew={activity.timestamp === newActivityTimestamp} // Pass isNew prop
+              isNew={activity.timestamp === newActivityTimestamp}
             />
           ))}
         </ul>
@@ -107,6 +90,13 @@ const Activities: React.FC = () => {
   );
 };
 
+/**
+ * Renders each individual Activity with a subtle enter animation using Framer Motion,
+ * @param title the title of the activity
+ * @param timestamp the activity timestamp
+ * @param src profileUrl for the contact
+ * @param isNew to identify new Notifications
+ */
 const Activity: React.FC<ActivityProps> = ({
   title,
   timestamp,

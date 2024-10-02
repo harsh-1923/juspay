@@ -12,13 +12,16 @@ import DashboardSidebar from "../../Components/DashboardSidebar/DashboardSidebar
 import InfoPannel from "../../Components/InfoPannel/InfoPannel";
 import LandingPage from "../LandingPage/LandingPage";
 
-const Dashboard = () => {
+/*
+ * The Dashboard component provides the layout and routing for dashboard-related pages.
+ * It conditionally renders the sidebar, info panel, and main content based on the dashboard settings.
+ */
+const Dashboard: React.FC = () => {
   const { dashboardSettings } = useDashboardContext();
+
   return (
     <div className="dashboard-wrapper">
-      {dashboardSettings && dashboardSettings.showSideBar && (
-        <DashboardSidebar />
-      )}
+      {dashboardSettings?.showSideBar && <DashboardSidebar />}
       <div className="dashboard-content-wrapper">
         <DashboardInfobar />
         <section className="dashboard-content">
@@ -29,13 +32,19 @@ const Dashboard = () => {
           </Routes>
         </section>
       </div>
-
-      {dashboardSettings && dashboardSettings.showInfoPannel && <InfoPannel />}
+      {dashboardSettings?.showInfoPannel && <InfoPannel />}
     </div>
   );
 };
 
-const DashboardWrapper = () => {
+/*
+ * A wrapper component to wrap the Dashboard inside a DashboardContent
+ * The DashboardContext manages Dashboard Settings like showSidebar, showInfoPannel etc.
+ *
+ * The DashboardContext ensures that the Dashboard remains
+ * interactive and responsive for smaller screens
+ */
+const DashboardWrapper: React.FC = () => {
   return (
     <DashboardProvider>
       <Dashboard />

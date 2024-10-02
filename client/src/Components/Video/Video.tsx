@@ -1,3 +1,7 @@
+/*
+ * A Video Component that takes in a video url and renders the video with some basic settings
+ */
+
 const Video = ({ src, className }: { src: string; className?: string }) => {
   return (
     <video

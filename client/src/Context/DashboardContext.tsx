@@ -23,6 +23,12 @@ interface DashboardContextType {
   setDashboardSettings: (settings: DashboardSettings) => void;
 }
 
+/*
+ * Provides the context for managing dashboard settings, including showing/hiding the sidebar
+ * and info panel, managing recent items, and favorite links.
+ */
+
+// Default context value to avoid undefined errors
 const defaultContextValue: DashboardContextType = {
   dashboardSettings: {
     showInfoPannel: true,
@@ -42,7 +48,7 @@ export const DashboardProvider = ({ children }: { children: ReactNode }) => {
       showInfoPannel: true,
       showSideBar: true,
       recents: [],
-      favs: [{ name: "Design Doc", link: "/" }],
+      favs: [{ name: "Design Doc", link: "/" }], // add a default Route to the Design Doc (for assignment)
     }
   );
 
@@ -58,6 +64,7 @@ export const DashboardProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+// Custom hook to access the dashboard context
 export const useDashboardContext = (): DashboardContextType => {
   return useContext(DashboardContext);
 };

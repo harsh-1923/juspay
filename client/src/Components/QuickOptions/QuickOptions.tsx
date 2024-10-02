@@ -3,6 +3,19 @@ import "./QuickOptions.css";
 import * as Tabs from "@radix-ui/react-tabs";
 import { useNavigate } from "react-router-dom";
 
+/*
+ * QuickOptions are a set of quick navigation options present in the side navbar
+ *
+ * It uses the DashboardContent to store and render the last two visited pages
+ * and any Page that is favourited by the user.
+ *
+ *
+ * TODO: The component currently uses Tailind CSS for quick styling,
+ * To maintain consistency across the app, I would have used Vanilla CSS if given more time
+ *
+ * https://www.figma.com/design/XBEbJlKyCR4kdwlhJvzAUS/UI-Developer-Assignment?node-id=2-10420&node-type=frame&t=FyXORb76TtQbTIO6-11
+ */
+
 const QuickOptions = () => {
   const { dashboardSettings } = useDashboardContext();
   const navigate = useNavigate();

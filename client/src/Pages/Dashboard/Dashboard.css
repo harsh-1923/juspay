@@ -17,7 +17,6 @@
   padding: 28px;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: grey transparent;
 }
 
 @media (width < 768px) {
